@@ -13,7 +13,7 @@ export const getPdfElementsList = (context) => {
   const ecOptions = context.globals.ecOptions;
   const elementsList = { ...commonPdfIndex.default };
   const plugin = ecOptions.plugins.find(p => (p.pluginName === 'jspdf'));
-  Logger.of('TplPdfLoader.getPdfElementsList').warn('plugin=', plugin);
+  Logger.of('TplPdfLoader.getPdfElementsList').info('plugin=', plugin);
   if (plugin) {
     const pdf = plugin.jspdf;
     Object.keys(pdf).forEach((k) => { elementsList[k] = pdf[k]; });
@@ -33,7 +33,7 @@ export const renderPdfContainer = (gen, container, context) => {
       height: gen.getDocHeight() - gen.margin.bottom - gen.getY()
     };
     if (typeof elementsList[props.type] === 'function') {
-      Logger.of('TplPdfLoader.renderPdfContainer').warn('props=', props);
+      Logger.of('TplPdfLoader.renderPdfContainer').info('props=', props);
       // there is no merged context, as chilren typically are PdfPage's
       ReactDOMServer.renderToString(React.createElement(elementsList[props.type], { gen, props, context: ctx }));
     } else {
